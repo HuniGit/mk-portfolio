@@ -18,7 +18,7 @@ type PersonalInfoData = {
   email?: string;
   location?: string;
   github?: string;
-  velog?: string;
+  notion?: string;
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -119,7 +119,7 @@ export default function Index() {
     (category) => skillsByCategory[category]
   );
 
-  const getName = () => ownerName || personalInfo.name || "Portfolio Owner";
+  const getName = () => "홍훈의";
   const getBio = () =>
     personalInfo.bio || "사용자 경험을 중시하는 Frontend Developer입니다.";
 
@@ -219,9 +219,9 @@ export default function Index() {
                 GitHub
               </a>
             )}
-            {personalInfo.velog && (
+            {personalInfo.notion && (
               <a
-                href={personalInfo.velog}
+                href={personalInfo.notion}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 dark:bg-green-700 text-white font-medium hover:bg-green-700 dark:hover:bg-green-600 transition-all duration-200 shadow-lg hover:shadow-xl"
@@ -431,16 +431,16 @@ export default function Index() {
               아직 블로그 글이 없습니다
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              벨로그에 글을 작성해보세요!
+              노션에 글을 작성해보세요!
             </p>
-            {personalInfo.velog && (
+            {personalInfo.notion && (
               <a
-                href={personalInfo.velog}
+                href={personalInfo.notion}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 dark:bg-green-700 text-white font-medium hover:bg-green-700 dark:hover:bg-green-600 transition-colors"
               >
-                벨로그 바로가기
+                노션 바로가기
               </a>
             )}
           </div>

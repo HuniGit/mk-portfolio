@@ -33,7 +33,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
     "bio",
     "email",
     "github",
-    "velog",
+    "notion",
     "location",
   ];
 
@@ -115,7 +115,7 @@ export default function PersonalInfo() {
               name="name"
               defaultValue={personalInfo.name || ""}
               className="p-4 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="김민기"
+              placeholder="홍훈의"
             />
           </div>
 
@@ -209,21 +209,21 @@ export default function PersonalInfo() {
             />
           </div>
 
-          {/* Velog */}
+          {/* notion */}
           <div>
             <label
-              htmlFor="velog"
+              htmlFor="notion"
               className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300"
             >
               Velog URL
             </label>
             <input
               type="url"
-              id="velog"
-              name="velog"
-              defaultValue={personalInfo.velog || ""}
+              id="notion"
+              name="notion"
+              defaultValue={personalInfo.notion || ""}
               className="p-4 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="https://velog.io/@username"
+              placeholder="https://notion.io/@username"
             />
           </div>
 

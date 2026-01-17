@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS projects (
 
 -- 샘플 개인정보 데이터
 INSERT OR REPLACE INTO personal_info (key, value) VALUES
-('name', '김민기'),
+('name', '홍훈의'),
 ('title', 'Frontend Developer'),
 ('bio', '사용자 경험을 중시하는 Frontend Developer입니다. React와 TypeScript를 활용한 모던 웹 개발에 집중하고 있습니다.'),
 ('email', 'example@email.com'),

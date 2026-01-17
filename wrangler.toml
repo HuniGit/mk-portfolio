@@ -5,11 +5,11 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "build/client"
 
 [vars]
-OWNER_NAME = "김민기"
-OWNER_POSITION = "프론트엔드 개발자"
+OWNER_NAME = "홍훈의"
+OWNER_POSITION = "임베디드 SW 개발자"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "my_remix_portfolio_db"
-database_id = "6398b891-6354-4b55-868c-154c1cdcea5f"
+database_name = "huneui_hong_portfolio_db"
+database_id = "9fd2990b-2df4-40a1-9b20-3e0f71f2014f"
 
