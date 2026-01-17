@@ -1,4 +1,4 @@
-name = "my-remix-portpoilo"
+name = "mk-portfolio"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
@@ -12,4 +12,3 @@ OWNER_POSITION = "임베디드 SW 개발자"
 binding = "DB"
 database_name = "huneui_hong_portfolio_db"
 database_id = "9fd2990b-2df4-40a1-9b20-3e0f71f2014f"
-
