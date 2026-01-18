@@ -403,10 +403,10 @@ export default function Index() {
       <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Latest Blog Posts
+            Notion Posts
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            벨로그에서 최근 작성한 글들입니다
+            노션에서 작성한 글들입니다
           </p>
         </div>
 
