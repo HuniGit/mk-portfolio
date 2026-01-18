@@ -8,7 +8,7 @@ import type { Experience } from "~/types/experience";
 import type { Project } from "~/types/project";
 import type { Skill } from "~/types/skill";
 import { SKILL_CATEGORIES } from "~/utils/categories";
-import { fetchVelogPosts } from "~/utils/rss";
+import { fetchNotionPosts } from "~/utils/rss";
 
 // 변환된 개인정보 타입
 type PersonalInfoData = {
@@ -49,7 +49,7 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     projectsResults,
     experiencesResults,
     skillsResults,
-    velogPosts,
+    notionPosts,
   ] = await Promise.all([
     context.cloudflare.env.DB.prepare("SELECT * FROM personal_info").all(),
     context.cloudflare.env.DB.prepare(
@@ -61,7 +61,7 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     context.cloudflare.env.DB.prepare(
       "SELECT * FROM skills ORDER BY category, proficiency DESC, name"
     ).all(),
-    fetchVelogPosts("93minki", 3),
+    fetchNotionPosts("93minki", 3),
   ]);
 
   const personalInfo: PersonalInfoData = {};
@@ -83,14 +83,14 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     projects: projectsResults.results as unknown as Project[],
     experiences: experiencesResults.results as unknown as Experience[],
     skills: skillsResults.results as unknown as Skill[],
-    velogPosts,
+    notionPosts,
     ownerName,
     ownerPosition,
   };
 };
 
 export default function Index() {
-  const { personalInfo, projects, experiences, skills, velogPosts, ownerName } =
+  const { personalInfo, projects, experiences, skills, notionPosts, ownerName } =
     useLoaderData<typeof loader>();
 
   // 카테고리별로 스킬 그룹핑
@@ -231,7 +231,7 @@ export default function Index() {
                     V
                   </span>
                 </div>
-                Velog
+                Notion
               </a>
             )}
           </div>
@@ -410,7 +410,7 @@ export default function Index() {
           </p>
         </div>
 
-        {velogPosts.length === 0 ? (
+        {notionPosts.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
               <svg
@@ -446,7 +446,7 @@ export default function Index() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {velogPosts.map((post, index) => (
+            {notionPosts.map((post, index) => (
               <div
                 key={index}
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl dark:shadow-gray-900/20 transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"

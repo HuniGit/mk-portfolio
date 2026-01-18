@@ -2,7 +2,7 @@
 import { parseString } from "xml2js";
 import { VelogArticle } from "~/types/velog_article";
 
-export async function fetchVelogPosts(
+export async function fetchNotionPosts(
   username: string,
   limit: number = 3
 ): Promise<VelogArticle[]> {
