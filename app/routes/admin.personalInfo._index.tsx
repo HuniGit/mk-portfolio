@@ -215,7 +215,7 @@ export default function PersonalInfo() {
               htmlFor="notion"
               className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300"
             >
-              Velog URL
+              Notion URL
             </label>
             <input
               type="url"
