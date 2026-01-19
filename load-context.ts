@@ -13,6 +13,8 @@ export interface Env {
   OWNER_NAME: string;
   OWNER_POSITION: string;
   CF_SITE_TAG: string;
+  NOTION_TOKEN: string;
+  NOTION_DATABASE_ID: string;
 }
 
 type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;

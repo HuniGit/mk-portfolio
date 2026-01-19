@@ -8,7 +8,7 @@ import type { Experience } from "~/types/experience";
 import type { Project } from "~/types/project";
 import type { Skill } from "~/types/skill";
 import { SKILL_CATEGORIES } from "~/utils/categories";
-import { fetchNotionPosts } from "~/utils/rss";
+import { fetchNotionPosts } from "~/utils/notion.server";
 
 // 변환된 개인정보 타입
 type PersonalInfoData = {
@@ -43,6 +43,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   ];
 };
 
+
 export const loader = async ({ context }: LoaderFunctionArgs) => {
   const [
     personalInfoResults,
@@ -51,17 +52,28 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     skillsResults,
     notionPosts,
   ] = await Promise.all([
-    context.cloudflare.env.DB.prepare("SELECT * FROM personal_info").all(),
+    context.cloudflare.env.DB.prepare(
+      "SELECT * FROM personal_info"
+    ).all(),
+
     context.cloudflare.env.DB.prepare(
       "SELECT * FROM projects WHERE featured = 1 ORDER BY order_index ASC"
     ).all(),
+
     context.cloudflare.env.DB.prepare(
       "SELECT * FROM experiences ORDER BY order_index ASC"
     ).all(),
+
     context.cloudflare.env.DB.prepare(
       "SELECT * FROM skills ORDER BY category, proficiency DESC, name"
     ).all(),
-    fetchNotionPosts("93minki", 3),
+
+    // ✅ 여기 수정
+    fetchNotionPosts({
+      token: context.cloudflare.env.NOTION_TOKEN,
+      databaseId: context.cloudflare.env.NOTION_DATABASE_ID,
+      limit: 3,
+    }),
   ]);
 
   const personalInfo: PersonalInfoData = {};
@@ -72,11 +84,15 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     personalInfo[row.key as keyof PersonalInfoData] = row.value;
   }
 
-  // 환경변수 우선 적용
   const ownerName =
-    context.cloudflare.env.OWNER_NAME || personalInfo.name || "Portfolio Owner";
+    context.cloudflare.env.OWNER_NAME ||
+    personalInfo.name ||
+    "Portfolio Owner";
+
   const ownerPosition =
-    context.cloudflare.env.OWNER_POSITION || personalInfo.title || "Developer";
+    context.cloudflare.env.OWNER_POSITION ||
+    personalInfo.title ||
+    "Developer";
 
   return {
     personalInfo,
@@ -88,6 +104,7 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     ownerPosition,
   };
 };
+
 
 export default function Index() {
   const { personalInfo, projects, experiences, skills, notionPosts, ownerName } =
