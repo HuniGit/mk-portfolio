@@ -24,12 +24,14 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const analyticsToken = context.cloudflare.env.CF_SITE_TAG;
+  const analyticsToken = context.cloudflare?.env?.CF_SITE_TAG ?? null;
   return { analyticsToken };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { analyticsToken } = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>() ?? { analyticsToken: null };
+  const analyticsToken = data.analyticsToken;
+
   return (
     <html lang="en">
       <head>
