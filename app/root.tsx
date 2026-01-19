@@ -24,37 +24,37 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const analyticsToken = context.cloudflare?.env?.CF_SITE_TAG ?? null;
-  return { analyticsToken };
+  return {
+    analyticsToken: context.cloudflare?.env?.CF_SITE_TAG ?? null,
+  };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const data = useLoaderData<typeof loader>() ?? { analyticsToken: null };
-  const analyticsToken = data.analyticsToken;
+  const { analyticsToken } = useLoaderData<typeof loader>() ?? { analyticsToken: null };
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
         <Links />
       </head>
       <body>
         {children}
         <ScrollRestoration />
         <Scripts />
-        {analyticsToken && (
+        {analyticsToken ? (
           <script
             defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon={`{"token": "${analyticsToken}"}`}
+            data-cf-beacon={JSON.stringify({ token: analyticsToken })}
           />
-        )}
+        ) : null}
       </body>
     </html>
   );
 }
+
 
 export default function App() {
   return <Outlet />;
